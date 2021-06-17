@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PutUtilisateurDTO {
-    private int id_utilisateur;
+    private Long id_utilisateur;
     private String nom_utilisateur;
     private String prenom_utilisateur;
     private String email_utilisateur;

@@ -38,7 +38,7 @@ public class UtilisateurService {
         return mapper.map(this.repository.save(utilisateur), FindUtilisateurDTO.class);
     }
 
-    public FindUtilisateurDTO findById(int id) {
+    public FindUtilisateurDTO findById(Long id) {
         return mapper.map(this.repository.findById(id).get(), FindUtilisateurDTO.class);
     }
 

@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeleteUtilisateurDTO {
-    private int id_utilisateur;
+    private Long id_utilisateur;
 }
