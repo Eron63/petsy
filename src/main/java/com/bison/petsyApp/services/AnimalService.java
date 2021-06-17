@@ -2,6 +2,7 @@ package com.bison.petsyApp.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 
@@ -39,8 +40,15 @@ public class AnimalService {
 	        return mapper.map(this.repository.save(Animal), FindAnimalDTO.class);
 	    }
 
-	    public FindAnimalDTO findById(Long id) {
-	        return mapper.map(this.repository.findById(id).get(), FindAnimalDTO.class);
+	    public Optional<FindAnimalDTO> findById(Long id) {
+	    	if(mapper.map(this.repository.findById(id).get(), FindAnimalDTO.class) != null)
+	    	{
+	    		return Optional.of(mapper.map(this.repository.findById(id).get(), FindAnimalDTO.class)) ;
+	    	}
+	    	else {
+
+		        return Optional.empty();
+	    	}
 	    }
 
 	    public void delete(DeleteAnimalDTO deleteAnimalDTO) {
