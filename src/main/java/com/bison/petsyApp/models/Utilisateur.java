@@ -26,5 +26,11 @@ public class Utilisateur {
     @JsonIgnoreProperties("animal")
     private Collection<Animal> animaux;
 
+    @ManyToMany
+    @JoinTable(name = "utilisateur_has_friends",
+            joinColumns = @JoinColumn(name = "id_utilisateur"),
+            inverseJoinColumns = @JoinColumn(name= "id_utilisateur1"))
+    private Collection<Utilisateur> amis;
+
 
 }
