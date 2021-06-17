@@ -35,7 +35,7 @@ public class AnimalController {
 	    
 	    @GetMapping("{id}")
 	    public FindAnimalDTO findById(@PathVariable Long id) {
-	        return this.service.findById(id);
+	        return this.service.findById(id).orElse(null);
 	    }
 
 	    @PostMapping
