@@ -3,6 +3,7 @@ package com.bison.petsyApp.services;
 import com.bison.petsyApp.dtos.utilisateur.DeleteUtilisateurDTO;
 import com.bison.petsyApp.dtos.utilisateur.FindUtilisateurDTO;
 import com.bison.petsyApp.dtos.utilisateur.PostUtilisateurDTO;
+import com.bison.petsyApp.dtos.utilisateur.PutUtilisateurDTO;
 import com.bison.petsyApp.models.Utilisateur;
 import com.bison.petsyApp.repositories.UtilisateurRepository;
 import org.modelmapper.ModelMapper;
@@ -32,8 +33,8 @@ public class UtilisateurService {
         return mapper.map(this.repository.save(utilisateur), FindUtilisateurDTO.class);
     }
 
-    public FindUtilisateurDTO update(PostUtilisateurDTO postUtilisateurDTO) {
-        Utilisateur utilisateur = mapper.map(postUtilisateurDTO, Utilisateur.class);
+    public FindUtilisateurDTO update(PutUtilisateurDTO putUtilisateurDTO) {
+        Utilisateur utilisateur = mapper.map(putUtilisateurDTO, Utilisateur.class);
         return mapper.map(this.repository.save(utilisateur), FindUtilisateurDTO.class);
     }
 
