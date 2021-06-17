@@ -1,5 +1,19 @@
 package com.bison.petsyApp.dtos.utilisateur;
 
-public class FindUtilisateurDTO {
+import com.bison.petsyApp.models.Animal;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.Collection;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class FindUtilisateurDTO {
+    private int id_utilisateur;
+    private String nom_utilisateur;
+    private String prenom_utilisateur;
+    private String email_utilisateur;
+    private Collection<Animal> animaux;
 }
