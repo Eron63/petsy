@@ -1,5 +1,10 @@
 package com.bison.petsyApp.repositories;
 
-public interface AnimalRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bison.petsyApp.models.Animal;
+
+
+public interface AnimalRepository extends JpaRepository<Animal, Long> {
 
 }
