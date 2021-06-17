@@ -22,7 +22,7 @@ public class Type {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id_type;
+	private long id_type;
 	private String nom_type;
 
 	@OneToMany(mappedBy = "animal")

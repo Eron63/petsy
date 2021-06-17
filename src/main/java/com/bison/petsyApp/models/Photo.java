@@ -21,7 +21,7 @@ public class Photo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id_photo;
+	private long id_photo;
 	private String lien_photo;
 
 	@ManyToOne
