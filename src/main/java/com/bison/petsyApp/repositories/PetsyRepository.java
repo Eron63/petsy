@@ -1,5 +1,9 @@
 package com.bison.petsyApp.repositories;
 
-public interface PetsyRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bison.petsyApp.models.Petsy;
+
+public interface PetsyRepository extends JpaRepository<Petsy, Long>{
 
 }
