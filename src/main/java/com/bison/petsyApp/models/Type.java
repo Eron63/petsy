@@ -25,8 +25,8 @@ public class Type {
 	private long id_type;
 	private String nom_type;
 
-	@OneToMany(mappedBy = "animal")
-	@JsonIgnoreProperties("animal")
+	@OneToMany(mappedBy = "type")
+	@JsonIgnoreProperties("type")
 	private Collection<Animal> animaux;
 
 }

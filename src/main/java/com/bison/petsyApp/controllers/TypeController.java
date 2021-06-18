@@ -3,12 +3,15 @@ package com.bison.petsyApp.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.bison.petsyApp.dtos.type.DeleteTypeDTO;
 import com.bison.petsyApp.dtos.type.FindTypeDTO;
@@ -16,6 +19,9 @@ import com.bison.petsyApp.dtos.type.PostTypeDTO;
 import com.bison.petsyApp.dtos.type.PutTypeDTO;
 import com.bison.petsyApp.services.TypeService;
 
+@RestController
+@RequestMapping("types")
+@CrossOrigin
 public class TypeController {
 
 	@Autowired
