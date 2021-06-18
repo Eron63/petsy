@@ -2,7 +2,9 @@ package com.bison.petsyApp.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import com.bison.petsyApp.dtos.petsy.FindPetsyDTO;
 import org.modelmapper.ModelMapper;
 
 import com.bison.petsyApp.dtos.photo.DeletePhotoDTO;
@@ -29,6 +31,17 @@ public class PhotoService {
 		return photoDTOS;
 	}
 
+	public Optional<FindPhotoDTO> findById(Long id) {
+		if(mapper.map(this.repository.findById(id).get(), FindPhotoDTO.class) != null)
+		{
+			return Optional.of(mapper.map(this.repository.findById(id).get(), FindPhotoDTO.class)) ;
+		}
+		else {
+
+			return Optional.empty();
+		}
+	}
+
 	public FindPhotoDTO save(PostPhotoDTO postPhotoDTO) {
 		Photo photo = mapper.map(postPhotoDTO, Photo.class);
 		return mapper.map(this.repository.save(photo), FindPhotoDTO.class);
@@ -37,10 +50,6 @@ public class PhotoService {
 	public FindPhotoDTO update(PutPhotoDTO putPhotoDTO) {
 		Photo photo = mapper.map(putPhotoDTO, Photo.class);
 		return mapper.map(this.repository.save(photo), FindPhotoDTO.class);
-	}
-
-	public FindPhotoDTO findById(Long id) {
-		return mapper.map(this.repository.findById(id).get(), FindPhotoDTO.class);
 	}
 
 	public void delete(DeletePhotoDTO deletePhotoDTO) {

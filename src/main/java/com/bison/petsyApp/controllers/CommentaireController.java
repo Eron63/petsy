@@ -6,6 +6,8 @@ import com.bison.petsyApp.dtos.commentaire.PostCommentaireDTO;
 import com.bison.petsyApp.dtos.commentaire.PutCommentaireDTO;
 import com.bison.petsyApp.services.CommentaireService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,23 +22,26 @@ public class CommentaireController {
     private CommentaireService service;
 
     @GetMapping
-    public List<FindCommentaireDTO> findAll() {
-        return this.service.findAll();
+    public ResponseEntity<List<FindCommentaireDTO>> findAll() {
+        return ResponseEntity.ok(this.service.findAll());
     }
 
     @PostMapping
-    public FindCommentaireDTO save(@RequestBody PostCommentaireDTO postCommentaireDTO) {
-        return this.service.save(postCommentaireDTO);
+    public ResponseEntity save(@RequestBody PostCommentaireDTO postCommentaireDTO) {
+        this.service.save(postCommentaireDTO);
+        return new ResponseEntity<>(postCommentaireDTO, HttpStatus.CREATED);
     }
 
     @PutMapping
-    public FindCommentaireDTO update(@RequestBody PutCommentaireDTO putCommentaireDTO) {
-        return this.service.update(putCommentaireDTO);
+    public ResponseEntity update(@RequestBody PutCommentaireDTO putCommentaireDTO) {
+        this.service.update(putCommentaireDTO);
+        return new ResponseEntity<>(putCommentaireDTO, HttpStatus.CREATED);
     }
 
     @DeleteMapping
-    public void delete(@RequestBody DeleteCommentaireDTO deleteCommentaireDTO) {
+    public ResponseEntity delete(@RequestBody DeleteCommentaireDTO deleteCommentaireDTO) {
         this.service.delete(deleteCommentaireDTO);
+        return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
     }
 
 }

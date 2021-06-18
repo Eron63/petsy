@@ -1,5 +1,6 @@
 package com.bison.petsyApp.services;
 
+import com.bison.petsyApp.dtos.petsy.FindPetsyDTO;
 import com.bison.petsyApp.dtos.utilisateur.DeleteUtilisateurDTO;
 import com.bison.petsyApp.dtos.utilisateur.FindUtilisateurDTO;
 import com.bison.petsyApp.dtos.utilisateur.PostUtilisateurDTO;
@@ -10,6 +11,7 @@ import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UtilisateurService {
 
@@ -28,6 +30,17 @@ public class UtilisateurService {
         return utilisateursDTOS;
     }
 
+    public Optional<FindUtilisateurDTO> findById(Long id) {
+        if(mapper.map(this.repository.findById(id).get(), FindUtilisateurDTO.class) != null)
+        {
+            return Optional.of(mapper.map(this.repository.findById(id).get(), FindUtilisateurDTO.class)) ;
+        }
+        else {
+
+            return Optional.empty();
+        }
+    }
+
     public FindUtilisateurDTO save(PostUtilisateurDTO postUtilisateurDTO) {
         Utilisateur utilisateur = mapper.map(postUtilisateurDTO, Utilisateur.class);
         return mapper.map(this.repository.save(utilisateur), FindUtilisateurDTO.class);
@@ -38,9 +51,6 @@ public class UtilisateurService {
         return mapper.map(this.repository.save(utilisateur), FindUtilisateurDTO.class);
     }
 
-    public FindUtilisateurDTO findById(Long id) {
-        return mapper.map(this.repository.findById(id).get(), FindUtilisateurDTO.class);
-    }
 
     public void delete(DeleteUtilisateurDTO deleteClientDTO) {
         this.repository.delete(mapper.map(deleteClientDTO, Utilisateur.class));

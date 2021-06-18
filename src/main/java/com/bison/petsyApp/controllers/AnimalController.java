@@ -51,22 +51,22 @@ public class AnimalController {
 	    }
 
 	    @PostMapping
-	    public ResponseEntity<?> save(@RequestBody PostAnimalDTO postAnimalDTO) {
+	    public ResponseEntity<PostAnimalDTO> save(@RequestBody PostAnimalDTO postAnimalDTO) {
 	    	
 	        this.service.save(postAnimalDTO);
 	        return new ResponseEntity<>(postAnimalDTO, HttpStatus.CREATED);
-	        
-	        
 	    }
 
 	    @PutMapping
-	    public FindAnimalDTO update(@RequestBody PutAnimalDTO putAnimalDTO) {
-	        return this.service.update(putAnimalDTO);
+	    public ResponseEntity update(@RequestBody PutAnimalDTO putAnimalDTO) {
+	        this.service.update(putAnimalDTO);
+	        return new ResponseEntity<>(putAnimalDTO, HttpStatus.CREATED);
 	    }
 
 	    @DeleteMapping
-	    public void delete(@RequestBody DeleteAnimalDTO deleteAnimalDTO) {
+	    public ResponseEntity delete(@RequestBody DeleteAnimalDTO deleteAnimalDTO) {
 	        this.service.delete(deleteAnimalDTO);
+	        return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
 	    }
 
 }

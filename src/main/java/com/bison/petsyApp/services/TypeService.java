@@ -2,7 +2,9 @@ package com.bison.petsyApp.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import com.bison.petsyApp.dtos.petsy.FindPetsyDTO;
 import org.modelmapper.ModelMapper;
 
 import com.bison.petsyApp.dtos.type.DeleteTypeDTO;
@@ -29,6 +31,17 @@ public class TypeService {
 		return typesDTOS;
 	}
 
+	public Optional<FindTypeDTO> findById(Long id) {
+		if(mapper.map(this.repository.findById(id).get(), FindTypeDTO.class) != null)
+		{
+			return Optional.of(mapper.map(this.repository.findById(id).get(), FindTypeDTO.class)) ;
+		}
+		else {
+
+			return Optional.empty();
+		}
+	}
+
 	public FindTypeDTO save(PostTypeDTO postTypeDTO) {
 		Type type = mapper.map(postTypeDTO, Type.class);
 		return mapper.map(this.repository.save(type), FindTypeDTO.class);
@@ -37,10 +50,6 @@ public class TypeService {
 	public FindTypeDTO update(PutTypeDTO putTypeDTO) {
 		Type type = mapper.map(putTypeDTO, Type.class);
 		return mapper.map(this.repository.save(type), FindTypeDTO.class);
-	}
-
-	public FindTypeDTO findById(Long id) {
-		return mapper.map(this.repository.findById(id).get(), FindTypeDTO.class);
 	}
 
 	public void delete(DeleteTypeDTO deleteTypeDTO) {

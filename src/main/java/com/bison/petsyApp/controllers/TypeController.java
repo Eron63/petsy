@@ -1,8 +1,15 @@
 package com.bison.petsyApp.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.bison.petsyApp.dtos.animal.DeleteAnimalDTO;
+import com.bison.petsyApp.dtos.animal.FindAnimalDTO;
+import com.bison.petsyApp.dtos.animal.PostAnimalDTO;
+import com.bison.petsyApp.dtos.animal.PutAnimalDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,28 +35,41 @@ public class TypeController {
 	TypeService service;
 
 	@GetMapping
-	public List<FindTypeDTO> findAll() {
-		return this.service.findAll();
+	public ResponseEntity<List<FindTypeDTO>> findAll() {
+		return ResponseEntity.ok(this.service.findAll());
 	}
 
 	@GetMapping("{id}")
-	public FindTypeDTO findById(@PathVariable Long id) {
-		return this.service.findById(id);
+	public ResponseEntity<?> findById(@PathVariable Long id) {
+		Optional<FindTypeDTO> findDTO = this.service.findById(id);
+
+		if(findDTO.isPresent())
+		{
+			return new ResponseEntity<>(findDTO.get(), HttpStatus.OK);
+		}
+		else
+		{
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 	@PostMapping
-	public FindTypeDTO save(@RequestBody PostTypeDTO postTypeDTO) {
-		return this.service.save(postTypeDTO);
+	public ResponseEntity<PostTypeDTO> save(@RequestBody PostTypeDTO postTypeDTO) {
+
+		this.service.save(postTypeDTO);
+		return new ResponseEntity<>(postTypeDTO, HttpStatus.CREATED);
 	}
 
 	@PutMapping
-	public FindTypeDTO update(@RequestBody PutTypeDTO putTypeDTO) {
-		return this.service.update(putTypeDTO);
+	public ResponseEntity update(@RequestBody PutTypeDTO putTypelDTO) {
+		this.service.update(putTypelDTO);
+		return new ResponseEntity<>(putTypelDTO, HttpStatus.CREATED);
 	}
 
 	@DeleteMapping
-	public void delete(@RequestBody DeleteTypeDTO deleteTypeDTO) {
+	public ResponseEntity delete(@RequestBody DeleteTypeDTO deleteTypeDTO) {
 		this.service.delete(deleteTypeDTO);
+		return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
 	}
 
 }

@@ -2,7 +2,9 @@ package com.bison.petsyApp.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import com.bison.petsyApp.dtos.petsy.PutPetsyDTO;
 import org.modelmapper.ModelMapper;
 
 import com.bison.petsyApp.dtos.petsy.DeletePetsyDTO;
@@ -27,19 +29,26 @@ public class PetsyService {
         petsys.forEach(petsy -> petsysDTOS.add(mapper.map(petsy, FindPetsyDTO.class)));
         return petsysDTOS;
     }
+
+	public Optional<FindPetsyDTO> findById(Long id) {
+	    	if(mapper.map(this.repository.findById(id).get(), FindPetsyDTO.class) != null)
+	    	{
+	    		return Optional.of(mapper.map(this.repository.findById(id).get(), FindPetsyDTO.class)) ;
+	    	}
+	    	else {
+
+		        return Optional.empty();
+	    	}
+	}
 	
 	public FindPetsyDTO save(PostPetsyDTO postPetsyDTO) {
 		Petsy petsy = mapper.map(postPetsyDTO, Petsy.class);
 		return mapper.map(this.repository.save(petsy), FindPetsyDTO.class);
 	}
 
-	public FindPetsyDTO update(PostPetsyDTO postPetsyDTO) {
-		Petsy petsy = mapper.map(postPetsyDTO, Petsy.class);
+	public FindPetsyDTO update(PutPetsyDTO putPetsyDTO) {
+		Petsy petsy = mapper.map(putPetsyDTO, Petsy.class);
 		return mapper.map(this.repository.save(petsy), FindPetsyDTO.class);
-	}
-	
-	public FindPetsyDTO findById(Long id) {
-		return mapper.map(this.repository.findById(id).get(), FindPetsyDTO.class);
 	}
 	
 	public void delete(DeletePetsyDTO deletePetsyDTO) {
