@@ -22,8 +22,8 @@ public class Photo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id_photo;
-	
 	private String lien_photo;
+	
 
 	@ManyToOne
 	@JoinColumn(name = "id_animal")
