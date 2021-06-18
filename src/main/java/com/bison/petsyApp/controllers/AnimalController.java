@@ -1,8 +1,11 @@
 package com.bison.petsyApp.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,18 +32,31 @@ public class AnimalController {
 	    AnimalService service;
 
 	    @GetMapping
-	    public List<FindAnimalDTO> findAll() {
-	        return this.service.findAll();
+	    public ResponseEntity<List<FindAnimalDTO>> findAll() {
+	        return ResponseEntity.ok(this.service.findAll());
 	    }
 	    
 	    @GetMapping("{id}")
-	    public FindAnimalDTO findById(@PathVariable Long id) {
-	        return this.service.findById(id).orElse(null);
+	    public ResponseEntity<?> findById(@PathVariable Long id) {
+	    	Optional<FindAnimalDTO> findDTO = this.service.findById(id);
+	    	
+	    	if(findDTO.isPresent())
+	    	{
+	    		return new ResponseEntity<>(findDTO.get(), HttpStatus.OK);		        
+	    	}
+	    	else
+	    	{
+	    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    	}
 	    }
 
 	    @PostMapping
-	    public FindAnimalDTO save(@RequestBody PostAnimalDTO postAnimalDTO) {
-	        return this.service.save(postAnimalDTO);
+	    public ResponseEntity<?> save(@RequestBody PostAnimalDTO postAnimalDTO) {
+	    	
+	        this.service.save(postAnimalDTO);
+	        return new ResponseEntity<>(postAnimalDTO, HttpStatus.CREATED);
+	        
+	        
 	    }
 
 	    @PutMapping
