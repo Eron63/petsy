@@ -4,6 +4,7 @@ import com.bison.petsyApp.repositories.AnimalRepository;
 import com.bison.petsyApp.repositories.CommentaireRepository;
 import com.bison.petsyApp.repositories.PetsyRepository;
 import com.bison.petsyApp.repositories.PhotoRepository;
+import com.bison.petsyApp.repositories.TypeRepository;
 import com.bison.petsyApp.repositories.UtilisateurRepository;
 import com.bison.petsyApp.services.AnimalService;
 import com.bison.petsyApp.services.CommentaireService;

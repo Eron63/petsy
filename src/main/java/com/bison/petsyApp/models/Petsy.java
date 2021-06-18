@@ -1,9 +1,12 @@
 package com.bison.petsyApp.models;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.*;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -27,8 +30,11 @@ public class Petsy {
 	
 	private Boolean is_animal;
 	private int nblike_petsy;
-	private LocalDateTime datecrea_petsy;
-	private LocalDateTime datemodif_petsy;
+	
+	@CreatedDate
+	private Date datecrea_petsy;
+	@LastModifiedDate
+	private Date datemodif_petsy;
 	private String lien_petsy;
 	private String texte_petsy;
 	private String liendu_petsy;
@@ -43,8 +49,9 @@ public class Petsy {
 	
 	@ManyToMany
     @JoinTable(name = "commande_like_petsy",
-            joinColumns = @JoinColumn(name = "petsyid"),
-            inverseJoinColumns = @JoinColumn(name= "utilisateur_id"))
+            joinColumns = @JoinColumn(name = "id_petsy"),
+            inverseJoinColumns = @JoinColumn(name= "id_utilisateur"))
+	@JsonIgnoreProperties("utilisateur")
     private Collection<Utilisateur> utilisateurs;
 
 }

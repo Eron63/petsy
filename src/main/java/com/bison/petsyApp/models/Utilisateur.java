@@ -22,15 +22,27 @@ public class Utilisateur {
     private String password_utilisateur;
 
 
-    @OneToMany(mappedBy = "animal")
-    @JsonIgnoreProperties("animal")
+    @OneToMany(mappedBy = "utilisateur")
+    @JsonIgnoreProperties("utilisateur")
     private Collection<Animal> animaux;
+    
+    @OneToMany(mappedBy = "utilisateur")
+    @JsonIgnoreProperties("utilisateur")
+    private Collection<Commentaire> commentaires;
 
     @ManyToMany
     @JoinTable(name = "utilisateur_has_friends",
             joinColumns = @JoinColumn(name = "id_utilisateur"),
-            inverseJoinColumns = @JoinColumn(name= "id_utilisateur1"))
+            inverseJoinColumns = @JoinColumn(name= "id_ami"))
+    @JsonIgnoreProperties("utilisateur")
     private Collection<Utilisateur> amis;
+    
+    @ManyToMany
+    @JoinTable(name = "utilisateur_like_petsy",
+            joinColumns = @JoinColumn(name = "id_utilisateur"),
+            inverseJoinColumns = @JoinColumn(name= "id_petsy"))
+    @JsonIgnoreProperties("utilisateur")
+    private Collection<Petsy> petsys;
 
 
 }

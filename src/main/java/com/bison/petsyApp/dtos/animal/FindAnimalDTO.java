@@ -1,13 +1,6 @@
 package com.bison.petsyApp.dtos.animal;
 
 import java.util.Collection;
-
-
-import com.bison.petsyApp.models.Petsy;
-import com.bison.petsyApp.models.Photo;
-import com.bison.petsyApp.models.Type;
-import com.bison.petsyApp.models.Utilisateur;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,11 +19,11 @@ public class FindAnimalDTO {
     private Long age_animal;
     private Boolean ismale_animal;
     
-    private Utilisateur utilisateur;
+    private AnimalUtilisateurDTO utilisateur;
     
-    private Type type;
+    private AnimalTypeDTO type;
     
-    private Collection<Petsy> petsys;
+    private Collection<AnimalPetsyDTO> petsys;
     
-    private Collection<Photo> photos;
+    private Collection<AnimalPhotoDTO> photos;
 }
