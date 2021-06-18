@@ -1,8 +1,13 @@
 package com.bison.petsyApp.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.bison.petsyApp.dtos.animal.FindAnimalDTO;
+import com.bison.petsyApp.dtos.petsy.PutPetsyDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,28 +32,40 @@ public class PetsyController {
 	PetsyService service;
 	
 	@GetMapping
-	public List<FindPetsyDTO> findAll() {
-		return this.service.findAll();
+	public ResponseEntity<List<FindPetsyDTO>> findAll() {
+		return ResponseEntity.ok(this.service.findAll());
 	}
 	
 	@GetMapping("{id}")
-	public FindPetsyDTO findById(@PathVariable Long id) {
-        return this.service.findById(id);
+	public ResponseEntity findById(@PathVariable Long id) {
+		Optional<FindPetsyDTO> findDTO = this.service.findById(id);
+
+		if(findDTO.isPresent())
+		{
+			return new ResponseEntity<>(findDTO.get(), HttpStatus.OK);
+		}
+		else
+		{
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
     }
 	
 	@PostMapping
-	public FindPetsyDTO save(@RequestBody PostPetsyDTO postPetsyDTO) {
-        return this.service.save(postPetsyDTO);
+	public ResponseEntity save(@RequestBody PostPetsyDTO postPetsyDTO) {
+        this.service.save(postPetsyDTO);
+        return new ResponseEntity<>(postPetsyDTO, HttpStatus.CREATED);
     }
 	
 	@PutMapping
-	public FindPetsyDTO update(@RequestBody PostPetsyDTO postPetsyDTO) {
-        return this.service.save(postPetsyDTO);
+	public ResponseEntity update(@RequestBody PutPetsyDTO putPetsyDTO) {
+        this.service.update(putPetsyDTO);
+        return new ResponseEntity<>(putPetsyDTO, HttpStatus.CREATED);
     }
 	
 	@DeleteMapping
-	public void delete(@RequestBody DeletePetsyDTO deletePetsyDTO) {
+	public ResponseEntity delete(@RequestBody DeletePetsyDTO deletePetsyDTO) {
 	    this.service.delete(deletePetsyDTO);
+		return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
 	}
 	
 }
